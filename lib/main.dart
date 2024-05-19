@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hacker_news_app/providers/comments_provider.dart';
 import 'package:hacker_news_app/screens/homepage.dart';
 import 'package:hacker_news_app/screens/top_stories.dart';
 import 'package:hacker_news_app/services/theme.dart';
@@ -14,6 +15,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
         ChangeNotifierProvider(create: (_) => ThemeService()),
         ChangeNotifierProvider(create: (_) => StoryProvider()),
+        ChangeNotifierProvider(create: (_) => CommentsProvider()),
       ],
       child: MyApp(),
     ),

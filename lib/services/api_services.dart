@@ -21,7 +21,7 @@ class ApiServices {
     }
   }
 
-  Future<Map<String, dynamic>> getStory(int id) async {
+  Future<Map<String, dynamic>> getItem(int id) async {
     final response = await http.get(Uri.parse('$baseUrl$item$id.json'));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);

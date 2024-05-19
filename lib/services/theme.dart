@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
-// add a light theme and a dark theme
 class ThemeService extends ChangeNotifier {
-  ThemeData _themeData = ThemeData.light();
+  bool _isDarkTheme = false;
 
-  ThemeData get theme => _themeData;
+  ThemeData get theme => _isDarkTheme ? _darkTheme : _lightTheme;
+
+  final ThemeData _lightTheme = ThemeData.light().copyWith(
+    cardColor: Colors.orange[300],
+  );
+
+  final ThemeData _darkTheme = ThemeData.dark().copyWith(
+    cardColor: Colors.red[800],
+  );
 
   void switchTheme() {
-    if (_themeData == ThemeData.light()) {
-      _themeData = ThemeData.dark();
-    } else {
-      _themeData = ThemeData.light();
-    }
-    print("CJANFE");
+    _isDarkTheme = !_isDarkTheme;
     notifyListeners();
   }
 }

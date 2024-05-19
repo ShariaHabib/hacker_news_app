@@ -4,20 +4,14 @@ import 'package:hacker_news_app/services/api_services.dart';
 import '../models/story.dart';
 
 class StoryProvider extends ChangeNotifier {
-  Map<int, Story> _stories = {};
-
   Map<int, Story> get stories => _stories;
-
-  bool _isTopStoryLoading = false;
-
   bool get isTopStoryLoading => _isTopStoryLoading;
-
   bool get loadMore => _loadMore;
 
+  Map<int, Story> _stories = {};
+  bool _isTopStoryLoading = false;
   bool _loadMore = false;
-
   int _count = 0;
-
   int _currentIndex = 0;
   int _nextIndex = 10;
 
@@ -34,7 +28,7 @@ class StoryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  ApiServices _apiServices = ApiServices();
+  final ApiServices _apiServices = ApiServices();
 
   Future<void> fetchTopStories() async {
     print('count value, $_count');
@@ -55,9 +49,7 @@ class StoryProvider extends ChangeNotifier {
       if (_stories.containsKey(id)) {
         continue;
       }
-      final Map<String, dynamic> storyData = await _apiServices.getStory(id);
-
-      // final String? imgUrl = await _apiServices.fetchImageUrl(storyData['url']);
+      final Map<String, dynamic> storyData = await _apiServices.getItem(id);
 
       final Story story = Story(
         id: storyData['id'] ?? 0,
@@ -67,9 +59,9 @@ class StoryProvider extends ChangeNotifier {
         score: storyData['score'] ?? "",
         time: storyData['time'] ?? "",
         descendants: storyData['descendants'] ?? 0,
-        // kids: storyData['kids'] as List<int>? ?? [],
+        kids: storyData['kids'] ?? [],
         type: storyData['type'] ?? "",
-        imageUrl: "",
+        text: storyData['text'] ?? "",
       );
       addStory(story);
       print("HEREEEEEEEE AISSSSSSSE");

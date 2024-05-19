@@ -2,13 +2,13 @@ class Story {
   String? by;
   int? descendants;
   int? id;
-  List<int>? kids;
+  List<dynamic>? kids;
   int? score;
   int? time;
   String? title;
   String? type;
   String? url;
-  String? imageUrl;
+  String? text;
   Story(
       {this.by,
       this.descendants,
@@ -19,7 +19,7 @@ class Story {
       this.title,
       this.type,
       this.url,
-      this.imageUrl});
+      this.text});
 
   Story.fromJson(Map<String, dynamic> json) {
     by = json['by'] ?? "";
@@ -31,7 +31,7 @@ class Story {
     title = json['title'] ?? "";
     type = json['type'] ?? "";
     url = json['url'] ?? "";
-    imageUrl = json['imageUrl'] ?? "";
+    text = json['text'] ?? "";
   }
 
   Map<String, dynamic> toJson() {
@@ -45,7 +45,7 @@ class Story {
     data['title'] = this.title;
     data['type'] = this.type;
     data['url'] = this.url;
-    data['imageUrl'] = this.imageUrl;
+    data['text'] = this.text;
     return data;
   }
 }
