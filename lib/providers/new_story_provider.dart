@@ -1,57 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:hacker_news_app/services/api_services.dart';
-
 import '../models/story.dart';
 
-class StoryProvider extends ChangeNotifier {
-  Map<int, Story> get stories => _stories;
-  bool get isTopStoryLoading => _isTopStoryLoading;
-  bool get loadMore => _loadMore;
+class NewStoryProvider extends ChangeNotifier {
+  Map<int, Story> get newStories => _newStory;
+  bool get isTopStoryLoading => _isNewStoryLoading;
+  bool get loadMoreNewStory => _loadMoreNewStory;
 
-  Map<int, Story> _stories = {};
-  bool _isTopStoryLoading = false;
-  bool _loadMore = false;
+  Map<int, Story> _newStory = {};
+  bool _isNewStoryLoading = false;
+  bool _loadMoreNewStory = false;
   int _count = 0;
   int _currentIndex = 0;
   int _nextIndex = 10;
 
-  List<int> storyIds = [];
+  List<int> newStoryIds = [];
 
   void setLoadMore(bool value) {
-    _loadMore = value;
+    _loadMoreNewStory = value;
     notifyListeners();
   }
 
-  void addStory(Story story) {
-    _stories[story.id ?? 0] = story;
-    print(_stories.length);
+  void addNewStory(Story newStory) {
+    _newStory[newStory.id ?? 0] = newStory;
+    print(_newStory.length);
     notifyListeners();
   }
 
   final ApiServices _apiServices = ApiServices();
 
-  Future<void> fetchTopStories() async {
+  Future<void> fetchNewStories() async {
     print('count value, $_count');
-    _isTopStoryLoading = true;
+    _isNewStoryLoading = true;
     notifyListeners();
     if (_count == 0) {
-      storyIds = await _apiServices.getTopStories();
+      newStoryIds = await _apiServices.getNewStories();
       _count++;
     }
 
-    if (loadMore) {
+    if (loadMoreNewStory) {
       _currentIndex = _nextIndex;
       _nextIndex += 15;
     }
 
-    for (int i = _currentIndex; i < _nextIndex && i < storyIds.length; i++) {
-      final int id = storyIds[i];
-      if (_stories.containsKey(id)) {
+    for (int i = _currentIndex; i < _nextIndex && i < newStoryIds.length; i++) {
+      final int id = newStoryIds[i];
+      if (_newStory.containsKey(id)) {
         continue;
       }
       final Map<String, dynamic> storyData = await _apiServices.getItem(id);
 
-      final Story story = Story(
+      final Story newStory = Story(
         id: storyData['id'] ?? 0,
         title: storyData['title'] ?? "",
         by: storyData['by'] ?? "",
@@ -63,14 +62,15 @@ class StoryProvider extends ChangeNotifier {
         type: storyData['type'] ?? "",
         text: storyData['text'] ?? "",
       );
-      addStory(story);
+
+      addNewStory(newStory);
       print("HEREEEEEEEE AISSSSSSSE");
-      print(story.title);
+      print('EKhnaer moddhee ${newStory.title}');
     }
     print("LOOOPP end");
-    _loadMore = false;
+    _loadMoreNewStory = false;
     notifyListeners();
-    _isTopStoryLoading = false;
+    _isNewStoryLoading = false;
     notifyListeners();
   }
 }

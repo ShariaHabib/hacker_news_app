@@ -6,15 +6,18 @@ class Comment {
   String? text;
   int? time;
   String? type;
+  bool? deleted;
 
-  Comment(
-      {this.by,
-      this.id,
-      this.kids,
-      this.parent,
-      this.text,
-      this.time,
-      this.type});
+  Comment({
+    this.by,
+    this.id,
+    this.kids,
+    this.parent,
+    this.text,
+    this.time,
+    this.type,
+    this.deleted,
+  });
 
   Comment.fromJson(Map<String, dynamic> json) {
     by = json['by'];
@@ -24,6 +27,7 @@ class Comment {
     text = json['text'];
     time = json['time'];
     type = json['type'];
+    deleted = json['deleted'];
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +39,7 @@ class Comment {
     data['text'] = this.text;
     data['time'] = this.time;
     data['type'] = this.type;
+    data['deleted'] = this.deleted;
     return data;
   }
 }

@@ -2,6 +2,7 @@ class Story {
   String? by;
   int? descendants;
   int? id;
+  bool? deleted;
   List<dynamic>? kids;
   int? score;
   int? time;
@@ -9,17 +10,18 @@ class Story {
   String? type;
   String? url;
   String? text;
-  Story(
-      {this.by,
-      this.descendants,
-      this.id,
-      this.kids,
-      this.score,
-      this.time,
-      this.title,
-      this.type,
-      this.url,
-      this.text});
+  Story({
+    this.by,
+    this.descendants,
+    this.id,
+    this.kids,
+    this.score,
+    this.time,
+    this.title,
+    this.type,
+    this.url,
+    this.text,
+  });
 
   Story.fromJson(Map<String, dynamic> json) {
     by = json['by'] ?? "";

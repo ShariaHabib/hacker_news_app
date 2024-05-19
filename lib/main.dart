@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hacker_news_app/providers/comments_provider.dart';
-import 'package:hacker_news_app/screens/homepage.dart';
-import 'package:hacker_news_app/screens/top_stories.dart';
+import 'package:hacker_news_app/providers/new_story_provider.dart';
+import 'package:hacker_news_app/screens/splash_screen.dart';
 import 'package:hacker_news_app/services/theme.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/navigation_provider.dart';
-import 'providers/story_provider.dart';
+import 'providers/top_story_provider.dart';
 
 void main() {
   runApp(
@@ -14,8 +14,9 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
         ChangeNotifierProvider(create: (_) => ThemeService()),
-        ChangeNotifierProvider(create: (_) => StoryProvider()),
+        ChangeNotifierProvider(create: (_) => TopStoryProvider()),
         ChangeNotifierProvider(create: (_) => CommentsProvider()),
+        ChangeNotifierProvider(create: (_) => NewStoryProvider())
       ],
       child: MyApp(),
     ),
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       builder: (context, themeService, child) {
         return MaterialApp(
           theme: themeService.theme,
-          home: Homepage(),
+          home: SplashScreen(),
         );
       },
     );

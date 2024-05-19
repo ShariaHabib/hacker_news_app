@@ -90,6 +90,7 @@ class CommentsProvider extends ChangeNotifier {
         text: commentData['text'] ?? "",
         time: commentData['time'] ?? 0,
         type: commentData['type'] ?? "",
+        deleted: commentData['deleted'] ?? false,
       );
 
       addComment(comment, storyId);
