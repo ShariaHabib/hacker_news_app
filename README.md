@@ -14,7 +14,7 @@ A flutter project using the Hacker News Api *(https://github.com/HackerNews/API)
 
 ## Installation
 
-* Set up flutter on your machine and emulator/device.
+* Set up flutter on your machine and emulator/device. [Installation](https://docs.flutter.dev/get-started/install)
 * Clone the repository.
 * Run 
 ```code 
