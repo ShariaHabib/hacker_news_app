@@ -24,14 +24,12 @@ class TopStoryProvider extends ChangeNotifier {
 
   void addTopStory(Story story) {
     _topStories[story.id ?? 0] = story;
-    print(_topStories.length);
     notifyListeners();
   }
 
   final ApiServices _apiServices = ApiServices();
 
   Future<void> fetchTopStories() async {
-    print('count value, $_count');
     _isTopStoryLoading = true;
     notifyListeners();
     if (_count == 0) {
@@ -64,10 +62,7 @@ class TopStoryProvider extends ChangeNotifier {
         text: storyData['text'] ?? "",
       );
       addTopStory(story);
-      print("HEREEEEEEEE AISSSSSSSE");
-      print(story.title);
     }
-    print("LOOOPP end");
     _loadMoreTopStory = false;
     notifyListeners();
     _isTopStoryLoading = false;

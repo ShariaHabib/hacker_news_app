@@ -1,6 +1,7 @@
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../constants.dart';
 import '../../models/story.dart';
 
 class PreviewLink extends StatelessWidget {
@@ -27,7 +28,7 @@ class PreviewLink extends StatelessWidget {
               child: Column(
                 children: [
                   Image.network(
-                    'https://github.com/sur950/any_link_preview/blob/master/lib/assets/giphy.gif?raw=true',
+                    Constants.previewErrorImage,
                     fit: BoxFit.cover,
                     height: MediaQuery.of(context).size.height * .20,
                   ),
@@ -40,8 +41,7 @@ class PreviewLink extends StatelessWidget {
             ),
           ),
         ),
-        errorImage:
-            'https://github.com/sur950/any_link_preview/blob/master/lib/assets/giphy.gif?raw=true',
+        errorImage: Constants.previewErrorImage,
         errorBody: "Error in loading preview. Tap to open link ${story.url}.",
         errorTitle: story.title ?? "",
       ),

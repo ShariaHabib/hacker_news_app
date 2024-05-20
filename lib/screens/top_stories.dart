@@ -1,10 +1,10 @@
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hacker_news_app/screens/details_screen.dart';
 import 'package:hacker_news_app/utils/convert_time.dart';
 import 'package:provider/provider.dart';
 
+import '../constants.dart';
 import '../models/story.dart';
 import '../providers/top_story_provider.dart';
 
@@ -21,7 +21,7 @@ class _TopStoriesState extends State<TopStories> {
   void initState() {
     super.initState();
 
-    Provider.of<TopStoryProvider>(context, listen: false).fetchTopStories();
+    // Provider.of<TopStoryProvider>(context, listen: false).fetchTopStories();
   }
 
   @override
@@ -45,18 +45,13 @@ class _TopStoriesState extends State<TopStories> {
       builder: (context, storyProvider, child) {
         return storyProvider.isTopStoryLoading &&
                 Provider.of<TopStoryProvider>(context).loadMoreTopStory == false
-            ? const Center(
-                child: SpinKitFadingFour(
-                    color: Color.fromRGBO(239, 108, 0, 1), size: 50.0))
+            ? Center(child: Constants.spinLoading)
             : ListView.builder(
                 controller: _scrollController,
                 itemCount: topStories.length + 1,
                 itemBuilder: (context, index) {
                   if (index == topStories.length) {
-                    return const Center(
-                      child: SpinKitFadingFour(
-                          color: Color.fromRGBO(239, 108, 0, 1), size: 50.0),
-                    );
+                    return Center(child: Constants.spinLoading);
                   }
                   return Padding(
                     padding: const EdgeInsets.only(top: 10.0),
@@ -95,7 +90,7 @@ class _TopStoriesState extends State<TopStories> {
                                   elevation: 0,
                                   child: Center(
                                     child: Image.network(
-                                      'https://github.com/sur950/any_link_preview/blob/master/lib/assets/giphy.gif?raw=true',
+                                      Constants.previewErrorImage,
                                       fit: BoxFit.cover,
                                       height:
                                           MediaQuery.of(context).size.height *
@@ -103,8 +98,7 @@ class _TopStoriesState extends State<TopStories> {
                                     ),
                                   ),
                                 ),
-                                errorImage:
-                                    'https://github.com/sur950/any_link_preview/blob/master/lib/assets/giphy.gif?raw=true',
+                                errorImage: Constants.previewErrorImage,
                                 errorBody: "",
                                 errorTitle:
                                     topStories.values.elementAt(index).title ??

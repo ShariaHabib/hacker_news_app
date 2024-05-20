@@ -30,7 +30,6 @@ class NewStoryProvider extends ChangeNotifier {
   final ApiServices _apiServices = ApiServices();
 
   Future<void> fetchNewStories() async {
-    print('count value, $_count');
     _isNewStoryLoading = true;
     notifyListeners();
     if (_count == 0) {
@@ -64,10 +63,7 @@ class NewStoryProvider extends ChangeNotifier {
       );
 
       addNewStory(newStory);
-      print("HEREEEEEEEE AISSSSSSSE");
-      print('EKhnaer moddhee ${newStory.title}');
     }
-    print("LOOOPP end");
     _loadMoreNewStory = false;
     notifyListeners();
     _isNewStoryLoading = false;

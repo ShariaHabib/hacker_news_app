@@ -1,11 +1,10 @@
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hacker_news_app/providers/new_story_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../constants.dart';
 import '../models/story.dart';
-import '../services/theme.dart';
 import '../utils/convert_time.dart';
 import 'details_screen.dart';
 
@@ -17,13 +16,11 @@ class NewStories extends StatefulWidget {
 }
 
 class _NewStoriesState extends State<NewStories> {
-  late ScrollController _scrollController;
+  ScrollController _scrollController = ScrollController();
 
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
-
-    Provider.of<NewStoryProvider>(context, listen: false).fetchNewStories();
+    // Provider.of<NewStoryProvider>(context, listen: false).fetchNewStories();
   }
 
   @override
@@ -31,11 +28,11 @@ class _NewStoriesState extends State<NewStories> {
     _scrollController.addListener(() {
       if (_scrollController.position.atEdge) {
         if (_scrollController.position.pixels == 0) {
-          print("Top");
         } else {
-          print("Bottom");
           Provider.of<NewStoryProvider>(context, listen: false)
               .setLoadMore(true);
+          Provider.of<NewStoryProvider>(context, listen: false)
+              .fetchNewStories();
         }
       }
     });
@@ -45,19 +42,13 @@ class _NewStoriesState extends State<NewStories> {
       builder: (context, storyProvider, child) {
         return storyProvider.isTopStoryLoading &&
                 Provider.of<NewStoryProvider>(context).loadMoreNewStory == false
-            ? const Center(
-                child: SpinKitFadingFour(
-                    color: Color.fromRGBO(239, 108, 0, 1), size: 50.0),
-              )
+            ? Center(child: Constants.spinLoading)
             : ListView.builder(
                 controller: _scrollController,
                 itemCount: newStories.length + 1,
                 itemBuilder: (context, index) {
                   if (index == newStories.length) {
-                    return const Center(
-                      child: SpinKitFadingFour(
-                          color: Color.fromRGBO(239, 108, 0, 1), size: 50.0),
-                    );
+                    return Center(child: Constants.spinLoading);
                   }
                   return Padding(
                     padding: const EdgeInsets.only(top: 10.0),
@@ -96,7 +87,7 @@ class _NewStoriesState extends State<NewStories> {
                                   elevation: 0,
                                   child: Center(
                                     child: Image.network(
-                                      'https://github.com/sur950/any_link_preview/blob/master/lib/assets/giphy.gif?raw=true',
+                                      Constants.previewErrorImage,
                                       fit: BoxFit.cover,
                                       height:
                                           MediaQuery.of(context).size.height *
@@ -104,8 +95,7 @@ class _NewStoriesState extends State<NewStories> {
                                     ),
                                   ),
                                 ),
-                                errorImage:
-                                    'https://github.com/sur950/any_link_preview/blob/master/lib/assets/giphy.gif?raw=true',
+                                errorImage: Constants.previewErrorImage,
                                 errorBody: "",
                                 errorTitle:
                                     newStories.values.elementAt(index).title ??

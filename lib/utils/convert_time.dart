@@ -1,6 +1,5 @@
 class Convertion {
   static String convertTime(int time) {
-    // convert creation time to time ago from milliseconds
     DateTime now = DateTime.now();
     DateTime date = DateTime.fromMillisecondsSinceEpoch(time * 1000);
     Duration diff = now.difference(date);

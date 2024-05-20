@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants.dart';
 import '../../models/story.dart';
 import '../../providers/comments_provider.dart';
 import '../../utils/convert_time.dart';
@@ -33,35 +33,57 @@ class CommentSection extends StatelessWidget {
         ),
         const Divider(
           thickness: 1,
-          // color: Colors.grey,
         ),
         Consumer<CommentsProvider>(builder: (context, provider, child) {
+          Future.delayed(const Duration(seconds: 2), () {
+            Constants.spinLoading;
+          });
+
           if (provider.isCommentLoading && provider.comments.isEmpty) {
-            return const Center(
-              child: SpinKitFadingFour(
-                  color: Color.fromRGBO(239, 108, 0, 1), size: 50.0),
+            return Center(
+              child: Constants.spinLoading,
             );
           }
 
           final parent = story.id;
           final commentList = provider.comments[parent];
-
           return commentList == null || commentList.isEmpty
-              ? const Center(child: Text("No comments available."))
+              ? story.kids?.length == 0
+                  ? const Center(
+                      child: Text("No comments available."),
+                    )
+                  : FutureBuilder<void>(
+                      future: Future.delayed(const Duration(seconds: 2)),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child: Constants.spinLoading,
+                          );
+                        } else {
+                          return const Center(
+                            child: Text("No comments available."),
+                          );
+                        }
+                      },
+                    )
               : ListView.builder(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: commentList.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: commentList.length +
+                      (commentList.length != story.kids?.length ? 1 : 0),
                   itemBuilder: (context, index) {
-                    print(
-                        '${commentList[index].deleted} ekhaner data ${commentList[index].time}');
+                    if (index == commentList.length) {
+                      return Constants.spinLoading;
+                    }
                     return Card(
                       child: commentList[index].deleted ?? false
-                          ? const Center(
+                          ? Center(
                               child: Text(
-                                "** This item has been removed **",
-                                style: TextStyle(
-                                    fontStyle: FontStyle.italic, fontSize: 18),
+                                Constants.itemRemoved,
+                                style: const TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold),
                               ),
                             )
                           : Padding(

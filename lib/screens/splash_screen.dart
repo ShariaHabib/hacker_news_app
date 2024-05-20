@@ -5,6 +5,7 @@ import 'package:hacker_news_app/providers/new_story_provider.dart';
 import 'package:hacker_news_app/screens/homepage.dart';
 import 'package:provider/provider.dart';
 
+import '../constants.dart';
 import '../providers/top_story_provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: SvgPicture.asset(
-              'assets/image/logo.svg',
+              Constants.logo,
               fit: BoxFit.cover,
             ),
           ),

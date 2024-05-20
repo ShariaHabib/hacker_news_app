@@ -5,6 +5,7 @@ import 'package:hacker_news_app/screens/new_stories.dart';
 import 'package:hacker_news_app/screens/top_stories.dart';
 import 'package:provider/provider.dart';
 
+import '../constants.dart';
 import '../services/theme.dart';
 
 class Homepage extends StatefulWidget {
@@ -30,7 +31,7 @@ class _HomepageState extends State<Homepage> {
             leading: Padding(
               padding: const EdgeInsets.all(12.0),
               child: SvgPicture.asset(
-                'assets/image/logo.svg',
+                Constants.logo,
                 height: 10,
                 width: 10,
               ),

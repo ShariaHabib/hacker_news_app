@@ -20,8 +20,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   void initState() {
     super.initState();
-    // Fetch initial comments
-    print(" LIST---------------->  ${widget.story.kids ?? []}");
     Provider.of<CommentsProvider>(context, listen: false)
         .fetchComments(widget.story.kids ?? [], widget.story.id ?? 0);
   }
