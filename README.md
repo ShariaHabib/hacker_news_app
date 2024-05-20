@@ -1,16 +1,15 @@
-# hacker_news_app
+# Hacker News App
 
-A new Flutter project.
+A flutter project using the Hacker News Api *(https://github.com/HackerNews/API)*. Top stoies and New Stoies are shown. Also in the details page of story user can see the comments.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+* **State Management:** *Provider* is used for managing the states.
+* **Pagination:** A large number of api is called everytime so for better usability pagination has been implemented.
+* **Caching:** In app caching has been implemented for faster user experience and making the application cost efficient.
+* **Preview:** Preview is shown for the url's of the story.
+* **Design:** Light and Dark theme implemented. Loading indication for better user experience.
 
-A few resources to get you started if this is your first Flutter project:
+* **Comments:** Only parent comments are shown in the comment section.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
