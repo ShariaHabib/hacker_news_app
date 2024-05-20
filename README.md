@@ -12,4 +12,13 @@ A flutter project using the Hacker News Api *(https://github.com/HackerNews/API)
 * **Comments:** Only parent comments are shown in the comment section.
 
 
+## Installation
 
+* Set up flutter on your machine and emulator/device.
+* Clone the repository.
+* Run 
+```code 
+flutter pub get
+
+flutter run
+```
